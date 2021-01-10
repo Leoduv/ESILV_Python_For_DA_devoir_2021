@@ -37,20 +37,20 @@ Le projet se compose de :
 Nous avons décidé d'utiliser un RandomForest car c'est celui qui nous a permis d'obtenir les meilleurs résultats.
 Il a été entrainé avec un dataset contenant ces colonnes :
 
-|Number|Features|
-| :-: | :- |
-|30|CC1|
-|31|CC2|
-|32|CC3|
-|33|CC4|
-|34|CC5|
-|3|Page_talking_about|
-|37|Post_share_count|
-|4|Page_category|
-|35|Base_time|
-|40à46|Post_published_day_num|
-|47à53|Base_DateTime_day_num|
-|54|Target_variable|
+|Number|Features|description|
+| :-: | :- |:- |
+|30|CC1|le nombre total de commentaires avant la date/heure choisi|
+|31|CC2|Le nombre de commentaires dans les dernières 24 heures, par rapport à la date/heure de référence|
+|32|CC3| Le nombre de commentaires dans les dernières 48 à 24 heures par rapport à la date/heure de base|
+|33|CC4| Le nombre de commentaires dans les premières 24 heures après la publication du courrier mais avant la date/heure de base.|
+|34|CC5|La différence entre CC2 et CC3|
+|3|Page_talking_about|Définit l'intérêt quotidien des individus envers la source du document/poste. Les personnes qui reviennent effectivement à la page, après avoir aimé la page. Cela inclut les activités telles que les commentaires, les commentaires sur un post, les partages, etc. des visiteurs de la page|
+|37|Post_share_count|Cette fonction compte le nombre de partages du poste, combien de personnes avaient partagé ce poste|
+|4|Page_category|Définit la catégorie de la source du document, par exemple : lieu, institution, marque, etc|
+|35|Base_time|Moment choisi pour simuler le scénario|
+|40à46|Post_published_day_num|Ceci représente le jour (dimanche...samedi) où le poste a été publié|
+|47à53|Base_DateTime_day_num|Cela représente le jour (dimanche...samedi) sur la base sélectionnée Date/Heure|
+|54|Target_variable|variable cible, nombre de commentaires|
 
 Et dont les 1% des valeurs les plus grandes ont été coupé, car elles étaient tellement plus élévés que les valeurs moyenne que les résulats étaient faussés.
 
@@ -68,7 +68,7 @@ Et pour nous, nos résultats montrent que c’est un objectif qui peut être att
 
 Au vu de la distribution des données dans le dataset, nous nous sommes posés la question de comment contourner le problème de la surreprésentation des posts avec 0 commentaires. 
 
-Une solution potentiel que nous n’avons pas pu tester serait de faire 2 modèles au lieu d’un seul : 
+Une solution potentielle que nous n’avons pas pu tester serait de faire 2 modèles au lieu d’un seul : 
 un premier modèle de classification dont le rôle serait de prédire si un post va recevoir des commentaires ou s’il y aura 0 commentaires.
 puis, un autre modèle de régression, qui prédira le nombre de commentaire uniquement sur les posts étant identifiés comme “pouvant avoir des commentaires”. 
 C’est une solution que nous avons vu fonctionner dans différents concours Kaggle !
